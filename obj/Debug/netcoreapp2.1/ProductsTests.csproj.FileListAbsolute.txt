@@ -1,0 +1,17 @@
+C:\Users\Curso\source\repos\UnitTestProducts\obj\Debug\netcoreapp2.1\ProductsTests.csprojAssemblyReference.cache
+C:\Users\Curso\source\repos\UnitTestProducts\obj\Debug\netcoreapp2.1\ProductsTests.csproj.CoreCompileInputs.cache
+C:\Users\Curso\source\repos\UnitTestProducts\obj\Debug\netcoreapp2.1\ProductsTests.AssemblyInfoInputs.cache
+C:\Users\Curso\source\repos\UnitTestProducts\obj\Debug\netcoreapp2.1\ProductsTests.AssemblyInfo.cs
+C:\Users\Curso\source\repos\UnitTestProducts\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Curso\source\repos\UnitTestProducts\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Curso\source\repos\UnitTestProducts\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Curso\source\repos\UnitTestProducts\bin\Debug\netcoreapp2.1\ProductsTests.deps.json
+C:\Users\Curso\source\repos\UnitTestProducts\bin\Debug\netcoreapp2.1\ProductsTests.runtimeconfig.json
+C:\Users\Curso\source\repos\UnitTestProducts\bin\Debug\netcoreapp2.1\ProductsTests.runtimeconfig.dev.json
+C:\Users\Curso\source\repos\UnitTestProducts\bin\Debug\netcoreapp2.1\ProductsTests.dll
+C:\Users\Curso\source\repos\UnitTestProducts\bin\Debug\netcoreapp2.1\Products.dll
+C:\Users\Curso\source\repos\UnitTestProducts\bin\Debug\netcoreapp2.1\Products.pdb
+C:\Users\Curso\source\repos\UnitTestProducts\obj\Debug\netcoreapp2.1\ProductsTests.csproj.CopyComplete
+C:\Users\Curso\source\repos\UnitTestProducts\bin\Debug\netcoreapp2.1\ProductsTests.pdb
+C:\Users\Curso\source\repos\UnitTestProducts\obj\Debug\netcoreapp2.1\ProductsTests.dll
+C:\Users\Curso\source\repos\UnitTestProducts\obj\Debug\netcoreapp2.1\ProductsTests.pdb
