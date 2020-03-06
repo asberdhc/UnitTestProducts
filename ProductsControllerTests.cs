@@ -10,7 +10,7 @@ namespace UnitTestProducts
     [TestClass]
     public class ProductsControllerTests
     {
-        ProductsController pc = new ProductsController( new DataProductsContextMock() );
+        ProductsController pcMock = new ProductsController( new DataProductsContextMock() );
 
         [TestMethod]
         public void GetById_intExistingId_ReturnAnObjectSameId()
@@ -20,7 +20,7 @@ namespace UnitTestProducts
             int intExistingId = 777;
 
             //Act
-            var response = new ProductsController().GetById(intExistingId);
+            var response = pcMock.GetById(intExistingId);
             Products.Models.ProductDTO productDTO = new Products.Models.ProductDTO();
             try
             {
@@ -45,8 +45,7 @@ namespace UnitTestProducts
             int actual = 0;
             try
             {
-                var response = pc.GetNumPages();
-                //var response = new Products.Controllers.ProductsController().GetNumPages();
+                var response = pcMock.GetNumPages();
                 actual = (int)((OkObjectResult)response).Value;
             }
             catch (InvalidCastException)
@@ -57,6 +56,7 @@ namespace UnitTestProducts
             //Assert
             Assert.AreNotEqual(notExpected, actual);
         }
+
 
         [TestMethod]
         public void GetAll_NumPositiveAndCompletePage_ReturnTenProducts()
@@ -69,7 +69,7 @@ namespace UnitTestProducts
             List<Products.Models.ProductDTO> products = new List<Products.Models.ProductDTO>();
             try
             {
-                var response = new Products.Controllers.ProductsController().GetAll(PositiveAndCompleteNumPage);
+                var response = pcMock.GetAll(PositiveAndCompleteNumPage);
                 products = (List<Products.Models.ProductDTO>)((OkObjectResult)response).Value;
             }
             catch (InvalidCastException)
@@ -91,7 +91,7 @@ namespace UnitTestProducts
             OkObjectResult response = null;
             try
             {
-                response = (OkObjectResult)(new Products.Controllers.ProductsController().GetByName(ExistingName));
+                response = (OkObjectResult)(pcMock.GetByName(ExistingName));
             }
             catch (InvalidCastException)
             {
@@ -118,7 +118,7 @@ namespace UnitTestProducts
             Products.Models.ProductDTO actual = null;
             try
             {
-                var response = new Products.Controllers.ProductsController().Add(ValidProduct);
+                var response = pcMock.Add(ValidProduct);
                 actual = (Products.Models.ProductDTO)((OkObjectResult)response).Value;
             }
             catch (InvalidCastException)
@@ -147,7 +147,7 @@ namespace UnitTestProducts
             Products.Models.ProductDTO product = new Products.Models.ProductDTO();
             try
             {
-                var response = new Products.Controllers.ProductsController().Update(idProduct, ValidProduct);
+                var response = pcMock.Update(idProduct, ValidProduct);
                 product = (Products.Models.ProductDTO)((OkObjectResult)response).Value;
             }
             catch (InvalidCastException)
@@ -171,7 +171,7 @@ namespace UnitTestProducts
             int actual = 0;
             try
             {
-                var response = new Products.Controllers.ProductsController().Delete(ValidId);
+                var response = pcMock.Delete(ValidId);
                 actual = ((OkResult)response).StatusCode;
             }
             catch (InvalidCastException)
