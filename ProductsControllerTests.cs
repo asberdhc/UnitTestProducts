@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Products.Controllers;
 using Products.Models;
+using SerializeObjects;
 using System;
 using System.Collections.Generic;
 
@@ -10,21 +11,79 @@ namespace UnitTestProducts
     [TestClass]
     public class ProductsControllerTests
     {
-        ProductsController pcMock = new ProductsController( new DataProductsContextMock() );
+        List<ProductDTO> ProductsFromXML;
+        ProductsController pcMock;
+
+        [TestInitialize]
+        public void LoadData()
+        {
+            //obtaining data products dictionary from XML file
+            XMLFile.Path = @"C:\Users\Curso\source\repos\UnitTestProducts\";
+            ProductsFromXML = XMLFile.DeserializeList<List<ProductDTO>>("XMLProducctsFile.xml");
+
+            //Using Mock data base
+            pcMock = new ProductsController(new DataProductsContextMock());
+        }
 
         [TestMethod]
-        public void GetById_intExistingId_ReturnAnObjectSameId()
+        public void Add_ValidProduct_ReturnProductWithNewId()
         {
-            //Arrange
-            int expected = 777;
-            int intExistingId = 777;
+            //Arange
+            var newProduct = ProductsFromXML[0];
 
             //Act
-            var response = pcMock.GetById(intExistingId);
-            Products.Models.ProductDTO productDTO = new Products.Models.ProductDTO();
+            ProductDTO actual = null;
             try
             {
-                productDTO = (Products.Models.ProductDTO)((OkObjectResult)response).Value;
+                var response = pcMock.Add(newProduct);
+                actual = (ProductDTO)((OkObjectResult)response).Value;
+            }
+            catch (InvalidCastException)
+            {
+
+            }
+
+            //Assert
+            newProduct.IdProduct = actual.IdProduct;
+            Assert.AreNotEqual(0, actual.IdProduct);
+        }
+
+        [TestMethod]
+        public void Update_ValidProduct_ReturnProductUpdated()
+        {
+            //Arange
+            var newProduct = ProductsFromXML[0];
+            var updatedProduct = ProductsFromXML[1];
+
+            //Act
+            ProductDTO product = new ProductDTO();
+            try
+            {
+                var response = pcMock.Update(newProduct.IdProduct, updatedProduct);
+                product = (ProductDTO)((OkObjectResult)response).Value;
+                updatedProduct.IdProduct = product.IdProduct;
+            }
+            catch (InvalidCastException)
+            {
+
+            }
+
+            //Assert
+            Assert.AreEqual(updatedProduct, product);
+        }
+
+        [TestMethod]
+        public void GetById_intExistingId_ReturnAnObjectBasedOnId()
+        {
+            //Arrange
+            var newProduct = ProductsFromXML[0];
+
+            //Act
+            ProductDTO productDTO = new ProductDTO();
+            try
+            {
+                var response = pcMock.GetById(newProduct.IdProduct);
+                productDTO = (ProductDTO)((OkObjectResult)response).Value;
             }
             catch (InvalidCastException e)
             {
@@ -32,7 +91,7 @@ namespace UnitTestProducts
             }
 
             //Assert
-            Assert.AreEqual(expected, productDTO.IdProduct);
+            Assert.AreEqual(newProduct.IdProduct, productDTO.IdProduct);
         }
 
         [TestMethod]
@@ -56,7 +115,6 @@ namespace UnitTestProducts
             //Assert
             Assert.AreNotEqual(notExpected, actual);
         }
-
 
         [TestMethod]
         public void GetAll_NumPositiveAndCompletePage_ReturnTenProducts()
@@ -85,7 +143,7 @@ namespace UnitTestProducts
         public void GetByName_ExistingName_ReturnListProducts()
         {
             //Arange
-            string ExistingName = "tenis";
+            string ExistingName = "Tenis";
 
             //Act
             OkObjectResult response = null;
@@ -103,75 +161,17 @@ namespace UnitTestProducts
         }
 
         [TestMethod]
-        public void Add_ValidProduct_ReturnProductWithNewId()
-        {
-            //Arange
-            var ValidProduct = new Products.Models.ProductDTO
-            {
-                Name = "Valid Test",
-                Description = "Only a test",
-                Price = 3.2m,
-                Image = ""
-            };
-
-            //Act
-            Products.Models.ProductDTO actual = null;
-            try
-            {
-                var response = pcMock.Add(ValidProduct);
-                actual = (Products.Models.ProductDTO)((OkObjectResult)response).Value;
-            }
-            catch (InvalidCastException)
-            {
-
-            }
-
-            //Assert
-            Assert.AreNotEqual(0, actual.IdProduct);
-        }
-
-        [TestMethod]
-        public void Update_ValidProduct_ReturnProductUpdated()
-        {
-            //Arange
-            int idProduct = 777;
-            var ValidProduct = new Products.Models.ProductDTO
-            {
-                Name = "Update test",
-                Description = "description description",
-                Price = 3456.2m,
-                Image = "new image"
-            };
-
-            //Act
-            Products.Models.ProductDTO product = new Products.Models.ProductDTO();
-            try
-            {
-                var response = pcMock.Update(idProduct, ValidProduct);
-                product = (Products.Models.ProductDTO)((OkObjectResult)response).Value;
-            }
-            catch (InvalidCastException)
-            {
-
-            }
-
-            //Assert
-            ValidProduct.IdProduct = idProduct;
-            Assert.AreEqual(ValidProduct, product);
-        }
-
-        [TestMethod]
         public void Delete_ValidId_CorrectStatusCode()
         {
             //Arange
             int expected = 200;
-            int ValidId = 777;
+            var newProduct = ProductsFromXML[0];
 
             //Act
             int actual = 0;
             try
             {
-                var response = pcMock.Delete(ValidId);
+                var response = pcMock.Delete(newProduct.IdProduct);
                 actual = ((OkResult)response).StatusCode;
             }
             catch (InvalidCastException)

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ArrayOfProductDTO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProductDTO>
+    <IdProduct>1</IdProduct>
+    <Name>Testing</Name>
+    <Description>A testing description</Description>
+    <Price>12.34</Price>
+    <Image>none image</Image>
+  </ProductDTO>
+  <ProductDTO>
+    <IdProduct>0</IdProduct>
+    <Name>Testing Updated</Name>
+    <Description>A testing description Updated</Description>
+    <Price>43.21</Price>
+    <Image>none image updated</Image>
+  </ProductDTO>
+</ArrayOfProductDTO>
